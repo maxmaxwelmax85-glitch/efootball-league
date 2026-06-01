@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>League Competition - eFootball</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <div class="logo">eFootball League</div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="profile.html">Profile</a>
+        <a href="leagues.html">Leagues</a>
+
+        <span id="userDisplay" style="color:#FFD700; margin-right:10px;"></span>
+
+        <a href="#" id="logoutBtn" onclick="logout()" style="display:none;">
+            Sign Out
+        </a>
+    </nav>
+</header>
+
+<section class="leagues-container">
+
+    <h1>🏆 League Competition</h1>
+    <p>Manage fixtures and standings in real time</p>
+
+    <!-- ================= TAB BUTTONS ================= -->
+    <div style="text-align:center; margin:20px 0;">
+
+        <button id="fixturesTabBtn"
+                onclick="showTab('fixtures')">
+            📅 Fixtures
+        </button>
+
+        <button id="tableTabBtn"
+                onclick="showTab('table')">
+            📊 Table
+        </button>
+
+    </div>
+
+    <!-- ================= FIXTURES SECTION ================= -->
+    <div id="fixturesSection">
+
+        <div style="text-align:center; margin:15px 0;">
+
+            <button onclick="goPreviousWeek()">⬅ Previous Week</button>
+
+            <span id="weekDisplay"
+                  style="font-size:20px; font-weight:bold; margin:0 10px;">
+                Matchweek 1
+            </span>
+
+            <button onclick="goNextWeek()">Next Week ➡</button>
+
+        </div>
+
+        <div id="seasonStatus"
+             style="text-align:center; color:#FFD700; font-weight:bold;"></div>
+
+        <div id="fixturesContainer"></div>
+
+    </div>
+
+    <!-- ================= TABLE SECTION ================= -->
+    <div id="tableSection" style="display:none;">
+
+        <h2 style="text-align:center;">📊 League Table</h2>
+
+        <div id="tableContainer"></div>
+
+    </div>
+
+</section>
+
+<footer>
+    <p>© 2026 eFootball League</p>
+</footer>
+
+<!-- ================= SCRIPTS ================= -->
+<script src="league.js"></script>
+<script src="fixtures.js"></script>
+
+<script>
+
+// =======================
+// USER LOAD
+// =======================
+function loadUser() {
+
+    let username = localStorage.getItem("username");
+    let loggedIn = localStorage.getItem("loggedIn");
+
+    if (loggedIn === "true" && username) {
+
+        document.getElementById("userDisplay").innerText =
+            "👤 " + username;
+
+        document.getElementById("logoutBtn").style.display =
+            "inline-block";
+    }
+}
+
+// =======================
+// LOGOUT
+// =======================
+function logout() {
+    localStorage.clear();
+    location.href = "index.html";
+}
+
+// =======================
+// TAB SYSTEM (WITH ANIMATION)
+// =======================
+function showTab(tab) {
+
+    let fixtures = document.getElementById("fixturesSection");
+    let table = document.getElementById("tableSection");
+
+    let fixturesBtn = document.getElementById("fixturesTabBtn");
+    let tableBtn = document.getElementById("tableTabBtn");
+
+    // remove active styles
+    fixturesBtn.classList.remove("active-tab");
+    tableBtn.classList.remove("active-tab");
+
+    if (tab === "fixtures") {
+
+        fixtures.style.display = "block";
+        table.style.display = "none";
+
+        fixtures.classList.add("tab-section");
+        fixturesBtn.classList.add("active-tab");
+
+    } else {
+
+        fixtures.style.display = "none";
+        table.style.display = "block";
+
+        table.classList.add("tab-section");
+        tableBtn.classList.add("active-tab");
+
+        if (typeof loadTable === "function") {
+            loadTable();
+        }
+    }
+}
+
+// =======================
+// DEFAULT VIEW
+// =======================
+document.addEventListener("DOMContentLoaded", function () {
+    showTab("fixtures");
+});
+
+// =======================
+// INIT USER
+// =======================
+loadUser();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>eFootball League</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* optional smooth hiding */
+        #appFeatures {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">eFootball League</div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="#">Tournaments</a>
+        <a href="league-competition.html">Leagues</a>
+        <a href="profile.html">Profile</a>
+
+        <span id="userDisplay" style="color:#FFD700; margin-right:10px;"></span>
+
+        <span id="authLinks">
+            <a href="login.html">Login</a>
+            <a href="register.html">Register</a>
+        </span>
+
+        <a href="#" id="logoutBtn" onclick="logout()" style="display:none;">Sign Out</a>
+    </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Compete. Win. Dominate.</h1>
+        <p>Kenya’s Home of Competitive eFootball</p>
+
+        <a href="register.html" class="btn" id="joinBtn">Join Now</a>
+
+        <a href="dashboard.html" class="btn" id="dashboardBtn" style="display:none;">
+            Dashboard
+        </a>
+    </div>
+</section>
+
+<!-- 🔒 FEATURES (HIDDEN UNTIL LOGIN) -->
+<div id="appFeatures">
+
+<section class="features">
+
+    <div class="card">
+        <h3>🔥 Knockout Tournaments</h3>
+        <p>Single elimination battles where only the strongest survive.</p>
+    </div>
+
+    <a href="league-competition.html" style="text-decoration:none; color:inherit;">
+        <div class="card">
+            <h3>🏆 League Competitions</h3>
+            <p>Play weekly matches and climb the rankings.</p>
+        </div>
+    </a>
+
+    <div class="card">
+        <h3>📊 Player Rankings</h3>
+        <p>Track top players and your personal progress.</p>
+    </div>
+
+</section>
+
+</div>
+
+<!-- ABOUT -->
+<section class="about">
+    <h2>About eFootball League</h2>
+    <p>
+        eFootball League is Kenya’s competitive gaming platform where players compete in structured tournaments,
+        leagues, and rankings to become ultimate champions.
+    </p>
+</section>
+
+<footer>
+    <p>© 2026 eFootball League. All Rights Reserved.</p>
+</footer>
+
+<script>
+
+// =====================
+// AUTH SYSTEM
+// =====================
+function checkLoginStatus() {
+    let isLoggedIn = localStorage.getItem("loggedIn");
+
+    let authLinks = document.getElementById("authLinks");
+    let logoutBtn = document.getElementById("logoutBtn");
+
+    let joinBtn = document.getElementById("joinBtn");
+    let dashboardBtn = document.getElementById("dashboardBtn");
+
+    let appFeatures = document.getElementById("appFeatures");
+
+    if (isLoggedIn === "true") {
+
+        authLinks.style.display = "none";
+        logoutBtn.style.display = "inline-block";
+
+        joinBtn.style.display = "none";
+        dashboardBtn.style.display = "inline-block";
+
+        // SHOW FEATURES AFTER LOGIN
+        if (appFeatures) {
+            appFeatures.style.display = "block";
+        }
+
+    } else {
+
+        authLinks.style.display = "inline-block";
+        logoutBtn.style.display = "none";
+
+        joinBtn.style.display = "inline-block";
+        dashboardBtn.style.display = "none";
+
+        // HIDE FEATURES BEFORE LOGIN
+        if (appFeatures) {
+            appFeatures.style.display = "none";
+        }
+    }
+}
+
+// =====================
+// LOGOUT
+// =====================
+function logout() {
+    localStorage.removeItem("loggedIn");
+    localStorage.removeItem("username");
+    location.reload();
+}
+
+// =====================
+// USER DISPLAY
+// =====================
+function loadUserProfile() {
+    let username = localStorage.getItem("username");
+    let isLoggedIn = localStorage.getItem("loggedIn");
+
+    if (isLoggedIn === "true" && username) {
+        document.getElementById("userDisplay").innerText = "👤 " + username;
+    }
+}
+
+// RUN APP
+checkLoginStatus();
+loadUserProfile();
+
+</script>
+
+</body>
+</html>

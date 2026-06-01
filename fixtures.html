@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fixtures - eFootball League</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <div class="logo">eFootball League</div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="profile.html">Profile</a>
+
+        <span id="userDisplay" style="color:#FFD700; margin-right:10px;"></span>
+
+        <a href="#" id="logoutBtn" onclick="logout()" style="display:none;">Sign Out</a>
+    </nav>
+</header>
+
+<section class="fixtures-page">
+
+    <h1>📅 Match Fixtures</h1>
+
+    <div id="fixturesContainer"></div>
+
+</section>
+
+<script src="league.js"></script>
+
+<script>
+
+// =======================
+// USER DISPLAY
+// =======================
+function loadUser() {
+    let username = localStorage.getItem("username");
+    let isLoggedIn = localStorage.getItem("loggedIn");
+
+    if (isLoggedIn === "true" && username) {
+        document.getElementById("userDisplay").innerText = "👤 " + username;
+        document.getElementById("logoutBtn").style.display = "inline-block";
+    }
+}
+
+// =======================
+// GROUP FIXTURES
+// =======================
+function groupByMatchdays(fixtures, size = 10) {
+    let matchdays = [];
+    for (let i = 0; i < fixtures.length; i += size) {
+        matchdays.push(fixtures.slice(i, i + size));
+    }
+    return matchdays;
+}
+
+// =======================
+// SAVE MATCH RESULT
+// =======================
+function saveResult(div, index, matchIndex) {
+    let leagues = JSON.parse(localStorage.getItem("leagues")) || {};
+    let league = leagues[div];
+
+    let homeInput = document.getElementById(`h_${div}_${matchIndex}`);
+    let awayInput = document.getElementById(`a_${div}_${matchIndex}`);
+
+    let homeScore = parseInt(homeInput.value);
+    let awayScore = parseInt(awayInput.value);
+
+    if (isNaN(homeScore) || isNaN(awayScore)) {
+        alert("Enter valid scores");
+        return;
+    }
+
+    league.fixtures[index].homeScore = homeScore;
+    league.fixtures[index].awayScore = awayScore;
+    league.fixtures[index].played = true;
+
+    localStorage.setItem("leagues", JSON.stringify(leagues));
+
+    alert("Result saved!");
+
+    loadFixtures();
+}
+
+// =======================
+// LOAD FIXTURES (WITH MATCH RESULTS SYSTEM)
+// =======================
+function loadFixtures() {
+    let leagues = JSON.parse(localStorage.getItem("leagues")) || {};
+    let container = document.getElementById("fixturesContainer");
+
+    container.innerHTML = "";
+
+    for (let div in leagues) {
+        let league = leagues[div];
+        let matchdays = groupByMatchdays(league.fixtures, 10);
+
+        let html = `<h2>${league.name}</h2>`;
+
+        matchdays.forEach((matchday, mdIndex) => {
+
+            html += `
+                <div class="matchday">
+                    <h3 onclick="toggle(this)">📅 Matchday ${mdIndex + 1}</h3>
+                    <div class="matchday-content">
+            `;
+
+            matchday.forEach((f, i) => {
+
+                let realIndex = mdIndex * 10 + i;
+
+                html += `
+                    <div class="fixture">
+
+                        <span><strong>${f.home}</strong></span>
+                        <strong>vs</strong>
+                        <span><strong>${f.away}</strong></span>
+
+                        <br>
+
+                        ${f.played ? `
+                            <div style="margin-top:5px;">
+                                ⚽ Result: ${f.homeScore} - ${f.awayScore}
+                            </div>
+                        ` : `
+                            <div style="margin-top:5px;">
+                                <input type="number" id="h_${div}_${realIndex}" placeholder="Home" style="width:50px;">
+                                <input type="number" id="a_${div}_${realIndex}" placeholder="Away" style="width:50px;">
+
+                                <button onclick="saveResult('${div}', ${realIndex}, ${realIndex})">
+                                    Save
+                                </button>
+                            </div>
+                        `}
+
+                    </div>
+                `;
+            });
+
+            html += `
+                    </div>
+                </div>
+            `;
+        });
+
+        container.innerHTML += html;
+    }
+}
+
+// =======================
+// COLLAPSE MATCHDAYS
+// =======================
+function toggle(el) {
+    let content = el.nextElementSibling;
+
+    if (content.style.display === "block") {
+        content.style.display = "none";
+    } else {
+        content.style.display = "block";
+    }
+}
+
+// =======================
+// LOGOUT
+// =======================
+function logout() {
+    localStorage.removeItem("loggedIn");
+    localStorage.removeItem("username");
+    location.href = "index.html";
+}
+
+// RUN
+loadUser();
+loadFixtures();
+
+</script>
+
+</body>
+</html>

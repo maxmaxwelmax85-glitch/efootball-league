@@ -1,0 +1,786 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#121212;
+    color:white;
+}
+
+header{
+    background:#0A192F;
+    padding:15px 5%;
+}
+
+nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+nav h1{
+    color:#FFD700;
+}
+
+nav ul{
+    list-style:none;
+    display:flex;
+    gap:20px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+}
+
+.btn{
+    background:#FFD700;
+    color:black;
+    padding:8px 15px;
+    border-radius:5px;
+    font-weight:bold;
+}
+
+.hero{
+    text-align:center;
+    padding:100px 20px;
+    background:linear-gradient(
+        rgba(10,25,47,0.8),
+        rgba(18,18,18,0.9)
+    );
+}
+
+.hero h2{
+    font-size:3rem;
+    color:#FFD700;
+}
+
+.hero p{
+    margin:15px 0;
+    font-size:1.2rem;
+}
+
+.hero-btn{
+    display:inline-block;
+    background:#FFD700;
+    color:black;
+    padding:12px 25px;
+    text-decoration:none;
+    border-radius:5px;
+    font-weight:bold;
+}
+
+.features{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:20px;
+    padding:50px 5%;
+}
+
+.card{
+    background:#1E1E1E;
+    width:300px;
+    padding:20px;
+    border-radius:10px;
+    text-align:center;
+    border:1px solid #FFD700;
+}
+
+.card h3{
+    color:#FFD700;
+    margin-bottom:10px;
+}
+
+.about{
+    text-align:center;
+    padding:50px 10%;
+}
+
+footer{
+    background:#0A192F;
+    text-align:center;
+    padding:20px;
+    margin-top:30px;
+}
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.login-box {
+    background: #111a2e;
+    padding: 40px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+}
+
+.login-box h2 {
+    color: #00ff88;
+    margin-bottom: 20px;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 10px;
+    background: #00ff88;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.login-box button:hover {
+    background: #00cc6a;
+}
+
+.login-box a {
+    color: #00ff88;
+}
+#message {
+    margin-top: 10px;
+    font-size: 14px;
+}
+/* HERO */
+.hero {
+    background: linear-gradient(135deg, #0b1220, #162447);
+    text-align: center;
+    padding: 120px 20px;
+}
+
+.hero h1 {
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    color: #aaa;
+    margin-bottom: 20px;
+}
+
+.btn {
+    background: #00ff88;
+    color: black;
+    padding: 12px 25px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 6px;
+}
+
+/* FEATURES */
+.features {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 60px 20px;
+}
+
+.card {
+    background: #111a2e;
+    padding: 20px;
+    width: 250px;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    background: #162447;
+}
+
+/* ABOUT */
+.about {
+    text-align: center;
+    padding: 60px 20px;
+    background: #0f172a;
+}
+
+.about h2 {
+    color: #00ff88;
+}
+.dashboard {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.box {
+    background: #111a2e;
+    padding: 20px;
+    width: 200px;
+    border-radius: 10px;
+}
+
+.box h3 {
+    color: #00ff88;
+}
+/* DASHBOARD LAYOUT */
+.dashboard {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+/* PROFILE */
+.profile-card {
+    background: #111a2e;
+    padding: 20px;
+    border-radius: 12px;
+    width: 250px;
+    margin: auto;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    background: #00ff88;
+    border-radius: 50%;
+    margin: auto;
+}
+
+/* STATUS */
+.online {
+    color: #00ff88;
+}
+
+/* STATS GRID */
+.stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.stat-box {
+    background: #111a2e;
+    padding: 15px;
+    width: 120px;
+    border-radius: 10px;
+}
+
+/* LEVEL */
+.level-box {
+    background: #111a2e;
+    padding: 20px;
+    margin: 20px auto;
+    width: 300px;
+    border-radius: 10px;
+}
+
+.xp-bar {
+    width: 100%;
+    height: 10px;
+    background: #222;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.xp-fill {
+    width: 20%;
+    height: 100%;
+    background: #00ff88;
+}
+
+/* ACTIVITY */
+.activity {
+    background: #111a2e;
+    padding: 20px;
+    margin: 20px auto;
+    width: 300px;
+    border-radius: 10px;
+}
+/* DASHBOARD LAYOUT */
+.dashboard-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+    padding: 60px 20px;
+}
+
+/* PROFILE BOX */
+.profile-box {
+    background: #111a2e;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.profile-box h2 {
+    color: #00ff88;
+}
+
+.profile-box button {
+    margin-top: 15px;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    background: #00ff88;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* STATS */
+.stats-box {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.stat-card {
+    background: #111a2e;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    background: #162447;
+}
+
+.stat-card h3 {
+    color: #00ff88;
+    font-size: 24px;
+}
+
+/* ACTIVITY */
+.activity-box {
+    grid-column: span 2;
+    background: #111a2e;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.activity-box h2 {
+    color: #00ff88;
+}
+.profile-container {
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+}
+
+.profile-box {
+    background: #111a2e;
+    padding: 25px;
+    width: 350px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.profile-box input {
+    width: 90%;
+    padding: 10px;
+    margin: 8px 0;
+    border: none;
+}
+
+.profile-box button {
+    background: #00ff88;
+    border: none;
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.profile-box h2, .profile-box h3 {
+    color: #00ff88;
+}
+
+/* optional theme */
+.light {
+    background: white;
+    color: black;
+}nav {
+    display: flex;
+    align-items: center;
+    gap: 14px; /* 👈 this creates spacing between items */
+}
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0px 0px;
+}
+nav a:hover {
+    color: #00ff88;
+    background: rgba(0, 255, 136, 0.1);
+    border-radius: 5px;
+}
+.dashboard-container {
+    display: flex;
+    flex-direction: column; /* vertical layout */
+    align-items: center;
+    gap: 15px;
+    padding: 40px 20px;
+}
+
+.dashboard-container h1 {
+    color: #00ff88;
+    margin-bottom: 20px;
+}
+
+.dashboard-container .card {
+    background: #111a2e;
+    width: 80%;
+    max-width: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.dashboard-container .card:hover {
+    transform: scale(1.03);
+}
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #0b1220;
+    color: white;
+}
+
+/* CENTER LOGIN PAGE */
+.login-box {
+    width: 320px;
+    margin: 100px auto; /* 👈 centers it */
+    background: #111a2e;
+    padding: 25px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* INPUTS */
+.login-box input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    outline: none;
+}
+
+/* BUTTON */
+.login-box button {
+    width: 95%;
+    padding: 10px;
+    background: #00ff88;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* MESSAGE */
+#message {
+    margin-top: 10px;
+    font-size: 14px;
+}
+/* PROFILE PAGE SPACING */
+.profile-box p {
+    margin: 12px 0;
+    font-size: 16px;
+}
+
+.profile-box h2 {
+    margin-bottom: 20px;
+}
+
+.profile-box h3 {
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+.profile-box button {
+    width: 90%;
+    padding: 12px;
+    margin-top: 12px;
+    border-radius: 6px;
+}
+
+.profile-box {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+/* PROFILE PAGE */
+
+.profile-container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:50px 20px;
+}
+
+.profile-box{
+    width:100%;
+    max-width:600px;
+    background:#0A192F;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 0 20px rgba(255,215,0,0.2);
+    border:2px solid #FFD700;
+}
+
+.profile-box h2{
+    color:#FFD700;
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.profile-box h3{
+    color:#FFD700;
+    margin:20px 0 15px;
+}
+
+.player-info p{
+    margin:15px 0;
+    font-size:18px;
+    color:white;
+}
+
+.player-info strong{
+    color:#FFD700;
+}
+
+.profile-box hr{
+    border:none;
+    height:1px;
+    background:#FFD700;
+    margin:25px 0;
+}
+
+.profile-box button{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:none;
+    border-radius:8px;
+    background:#FFD700;
+    color:#0A192F;
+    font-weight:bold;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.profile-box button:hover{
+    transform:translateY(-2px);
+    opacity:0.9;
+}
+
+.profile-actions{
+    margin-top:25px;
+}
+
+.btn.logout{
+    display:block;
+    width:100%;
+    text-align:center;
+    text-decoration:none;
+    background:#ff3b3b;
+    color:white;
+    padding:12px;
+    border-radius:8px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.btn.logout:hover{
+    background:#e60000;
+}
+
+.profile-box span{
+    color:#ffffff;
+}
+.profile-box button{
+    width:100%;
+    padding:14px;
+    margin:15px 0;
+    border:none;
+    border-radius:8px;
+    background:#FFD700;
+    color:#0A192F;
+    font-weight:bold;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.profile-actions{
+    margin-top:30px;
+}
+
+.btn.logout{
+    display:block;
+    width:100%;
+    text-align:center;
+    text-decoration:none;
+    background:#ff3b3b;
+    color:white;
+    padding:14px;
+    border-radius:8px;
+    font-weight:bold;
+    margin-top:15px;
+    transition:0.3s;
+}
+.profile-box{
+    width:100%;
+    max-width:600px;
+    background:#0A192F;
+    padding:40px;
+    border-radius:15px;
+    box-shadow:0 0 20px rgba(255,215,0,0.2);
+    border:2px solid #FFD700;
+}
+
+.profile-box h3{
+    color:#FFD700;
+    margin:30px 0 20px;
+}
+.card {
+    margin: 15px;
+    padding: 20px;
+    background: #1a1a1a;
+    border-radius: 10px;
+}
+/* =========================
+   TAB BUTTON ANIMATION
+========================= */
+#fixturesTabBtn,
+#tableTabBtn {
+    transition: all 0.25s ease;
+    border: none;
+    border-radius: 8px;
+    background: #222;
+    color: white;
+    font-weight: bold;
+}
+
+#fixturesTabBtn:hover,
+#tableTabBtn:hover {
+    transform: scale(1.05);
+    background: #333;
+}
+
+/* ACTIVE TAB STYLE */
+.active-tab {
+    background: #FFD700 !important;
+    color: #000 !important;
+    transform: scale(1.08);
+}
+
+/* =========================
+   SECTION FADE ANIMATION
+========================= */
+.tab-section {
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================
+   BUTTON PRESS EFFECT
+========================= */
+button {
+    transition: 0.2s ease;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+/* =========================
+   GLOBAL FONT UPGRADE
+========================= */
+body {
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+/* Headings bigger */
+h1 {
+    font-size: 26px;
+}
+
+h2 {
+    font-size: 18px;
+}
+
+h3 {
+    font-size: 14px;
+}
+
+/* =========================
+   BUTTONS (BIGGER & CLEANER)
+========================= */
+button {
+    font-size: 10px;
+    padding: 6px 10px;
+}
+
+/* =========================
+   FIXTURES TEXT
+========================= */
+.league-card {
+    font-size: 15px;
+}
+
+/* =========================
+   TABLE TEXT
+========================= */
+table {
+    font-size: 15px;
+}
+
+th, td {
+    padding: 10px;
+}
+
+/* =========================
+   SPACE BETWEEN FIXTURES & TABLE
+========================= */
+#fixturesSection {
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+}
+
+#tableSection {
+    margin-top: 40px;
+    padding-top: 20px;
+}
+
+/* Extra separation for visual clarity */
+.leagues-container {
+    padding-bottom: 50px;
+}

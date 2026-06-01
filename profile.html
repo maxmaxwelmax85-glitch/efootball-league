@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Profile | eFootball League</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="#">Tournaments</a>
+    <a href="#">Leagues</a>
+    <a href="profile.html">Profile</a>
+
+    <!-- 👤 USERNAME DISPLAY ADDED -->
+    <span id="userDisplay" style="color:#FFD700; margin-right:10px;"></span>
+
+    <a href="dashboard.html" id="dashboardLink" style="display:none;">Dashboard</a>
+
+    <a href="#" id="logoutBtn" onclick="logout()" style="display:none;">Sign Out</a>
+</nav>
+</header>
+
+<section class="profile-container">
+
+    <div class="profile-box">
+
+        <h2>👤 Player Profile</h2>
+
+        <div class="info-section">
+            <div class="player-info">
+
+                <p><strong>Username:</strong> <span id="user"></span></p>
+
+                <p><strong>Player ID:</strong> EFL-1001</p>
+
+                <p><strong>Email:</strong> <span id="email">Not Set</span></p>
+
+                <p><strong>Phone Number:</strong> <span id="phone">Not Set</span></p>
+
+            </div>
+        </div>
+
+        <hr>
+
+        <h3>⚙️ Settings</h3>
+
+        <button>Edit Profile</button>
+        <button>Change Password</button>
+
+        <div class="profile-actions">
+            <a href="#" id="logoutBtn" class="btn logout" onclick="logout()">
+                Sign Out
+            </a>
+        </div>
+
+    </div>
+
+</section>
+
+<script>
+function loadProfile() {
+    let isLoggedIn = localStorage.getItem("loggedIn");
+    let username = localStorage.getItem("username");
+
+    if (isLoggedIn !== "true" || !username) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    document.getElementById("user").innerText = username;
+}
+
+function logout() {
+    localStorage.removeItem("loggedIn");
+    localStorage.removeItem("username");
+
+    window.location.href = "index.html";
+}
+
+loadProfile();
+</script>
+
+<script>
+function loadUserProfile() {
+    let username = localStorage.getItem("username");
+    let isLoggedIn = localStorage.getItem("loggedIn");
+
+    // Find all places we want to show username
+    let userDisplay = document.getElementById("userDisplay");
+    let profileName = document.getElementById("profileName");
+
+    if (isLoggedIn === "true" && username) {
+
+        // Navbar username (if exists)
+        if (userDisplay) {
+            userDisplay.innerText = "👤 " + username;
+        }
+
+        // Profile page username
+        if (profileName) {
+            profileName.innerText = username;
+        }
+    }
+}
+
+loadUserProfile();
+</script>
+</body>
+</html>

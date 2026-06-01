@@ -1,0 +1,241 @@
+// ===============================
+// eFootball League CORE ENGINE
+// ===============================
+
+// ===============================
+// CREATE LEAGUE
+// ===============================
+function createLeagueSystem() {
+
+    let teams = [];
+
+    for (let i = 1; i <= 20; i++) {
+        teams.push("Team " + i);
+    }
+
+    let leagues = {
+        premier: {
+            name: "Premier League",
+            teams: teams,
+            fixtures: generateFixtures(teams)
+        }
+    };
+
+    localStorage.setItem("leagues", JSON.stringify(leagues));
+    localStorage.setItem("currentWeek", "1");
+}
+
+// ===============================
+// FIXTURE GENERATOR (38 WEEKS)
+// ===============================
+function generateFixtures(teams) {
+
+    let list = [...teams];
+
+    if (list.length % 2 !== 0) list.push("BYE");
+
+    let n = list.length;
+    let rounds = n - 1;
+    let half = n / 2;
+
+    let rotation = [...list];
+    let fixtures = [];
+
+    // FIRST ROUND
+    for (let week = 1; week <= rounds; week++) {
+
+        for (let i = 0; i < half; i++) {
+
+            let home = rotation[i];
+            let away = rotation[n - 1 - i];
+
+            if (home !== "BYE" && away !== "BYE") {
+
+                fixtures.push({
+                    week,
+                    home,
+                    away,
+                    played: false,
+                    homeScore: null,
+                    awayScore: null
+                });
+            }
+        }
+
+        rotation.splice(1, 0, rotation.pop());
+    }
+
+    // SECOND ROUND (HOME/AWAY SWAP)
+    let firstHalf = [...fixtures];
+
+    firstHalf.forEach(m => {
+
+        fixtures.push({
+            week: m.week + 19,
+            home: m.away,
+            away: m.home,
+            played: false,
+            homeScore: null,
+            awayScore: null
+        });
+    });
+
+    return fixtures;
+}
+
+// ===============================
+// SAFE WEEK SYSTEM
+// ===============================
+function getCurrentWeek() {
+
+    let week = parseInt(localStorage.getItem("currentWeek"));
+
+    if (isNaN(week)) week = 1;
+
+    if (week < 1) week = 1;
+    if (week > 38) week = 38;
+
+    return week;
+}
+
+// ===============================
+// NEXT / PREVIOUS WEEK
+// ===============================
+function nextMatchWeek() {
+
+    let w = getCurrentWeek();
+
+    if (w < 38) {
+        w++;
+        localStorage.setItem("currentWeek", w);
+    }
+}
+
+function previousMatchWeek() {
+
+    let w = getCurrentWeek();
+
+    if (w > 1) {
+        w--;
+        localStorage.setItem("currentWeek", w);
+    }
+}
+
+// ===============================
+// SAVE RESULT
+// ===============================
+function saveMatchResult(leagueName, index, home, away) {
+
+    let leagues = JSON.parse(localStorage.getItem("leagues")) || {};
+    let league = leagues[leagueName];
+
+    if (!league) return;
+
+    let fixture = league.fixtures[index];
+
+    if (!fixture) return;
+
+    fixture.played = true;
+    fixture.homeScore = home;
+    fixture.awayScore = away;
+
+    localStorage.setItem("leagues", JSON.stringify(leagues));
+}
+
+// ===============================
+// TABLE SYSTEM
+// ===============================
+function calculateTable(leagueName) {
+
+    let leagues = JSON.parse(localStorage.getItem("leagues")) || {};
+    let league = leagues[leagueName];
+
+    if (!league) return [];
+
+    let table = {};
+
+    league.teams.forEach(team => {
+
+        table[team] = {
+            team,
+            played: 0,
+            wins: 0,
+            draws: 0,
+            losses: 0,
+            goalsFor: 0,
+            goalsAgainst: 0,
+            points: 0
+        };
+    });
+
+    league.fixtures.forEach(f => {
+
+        if (!f.played) return;
+
+        let h = table[f.home];
+        let a = table[f.away];
+
+        h.played++;
+        a.played++;
+
+        h.goalsFor += f.homeScore;
+        h.goalsAgainst += f.awayScore;
+
+        a.goalsFor += f.awayScore;
+        a.goalsAgainst += f.homeScore;
+
+        if (f.homeScore > f.awayScore) {
+
+            h.wins++;
+            a.losses++;
+            h.points += 3;
+
+        } else if (f.awayScore > f.homeScore) {
+
+            a.wins++;
+            h.losses++;
+            a.points += 3;
+
+        } else {
+
+            h.draws++;
+            a.draws++;
+            h.points++;
+            a.points++;
+        }
+    });
+
+    let result = Object.values(table);
+
+    result.forEach(t => {
+        t.goalDiff = t.goalsFor - t.goalsAgainst;
+    });
+
+    result.sort((a, b) => {
+
+        if (b.points !== a.points) return b.points - a.points;
+        if (b.goalDiff !== a.goalDiff) return b.goalDiff - a.goalDiff;
+        return b.goalsFor - a.goalsFor;
+    });
+
+    return result;
+}
+
+// ===============================
+// RESTART SEASON
+// ===============================
+function restartSeason() {
+
+    localStorage.clear();
+    createLeagueSystem();
+
+    alert("Season Restarted!");
+    location.reload();
+}
+
+// ===============================
+// INIT SYSTEM
+// ===============================
+if (!localStorage.getItem("leagues")) {
+    createLeagueSystem();
+}

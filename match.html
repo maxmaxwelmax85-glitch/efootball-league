@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Match Center - eFootball</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            background: #0A192F;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            padding: 15px;
+            background: #112240;
+        }
+
+        .logo {
+            color: #FFD700;
+            font-size: 20px;
+        }
+
+        nav a {
+            color: white;
+            margin-right: 10px;
+            text-decoration: none;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #1f2d45;
+            text-align: center;
+        }
+
+        th {
+            background: #112240;
+            color: #FFD700;
+        }
+
+        tr:nth-child(even) {
+            background: #112240;
+        }
+
+        .fixture-box {
+            background: #112240;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #FFD700;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">eFootball Match Center</div>
+    <nav>
+        <a href="league-competition.html">⬅ Back to League</a>
+        <a href="index.html">Home</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <h1 id="matchTitle">Loading Match...</h1>
+
+    <!-- FIXTURE INFO -->
+    <div class="fixture-box">
+        <p id="fixtureInfo">Loading fixture details...</p>
+    </div>
+
+    <!-- STANDINGS -->
+    <h2>🏆 League Standings (20 Teams)</h2>
+    <div id="tableBox"></div>
+
+</div>
+
+<script>
+
+// =======================
+// LOAD FIXTURE DATA
+// =======================
+let leagueId = localStorage.getItem("selectedLeague");
+let fixtureIndex = localStorage.getItem("selectedFixture");
+
+let leagues = JSON.parse(localStorage.getItem("leagues")) || {};
+
+// safety check
+if (!leagueId || !leagues[leagueId]) {
+    document.getElementById("matchTitle").innerText = "No Match Selected";
+} else {
+
+    let league = leagues[leagueId];
+    let fixture = league.fixtures[fixtureIndex];
+
+    document.getElementById("matchTitle").innerText =
+        fixture.home + " vs " + fixture.away;
+
+    document.getElementById("fixtureInfo").innerText =
+        "You are viewing match details for " + league.name;
+}
+
+// =======================
+// GENERATE 20-TEAM TABLE
+// =======================
+function loadStandings() {
+
+    let box = document.getElementById("tableBox");
+
+    let teams = [];
+
+    // Create 20 teams
+    for (let i = 1; i <= 20; i++) {
+        teams.push({
+            name: "Team " + i,
+            played: 19,
+            wins: 20 - i,
+            draws: i % 3,
+            losses: i,
+            gf: 40 - i,
+            ga: i * 2,
+            points: 60 - i * 2
+        });
+    }
+
+    let html = `
+        <table>
+            <tr>
+                <th>Pos</th>
+                <th>Team</th>
+                <th>P</th>
+                <th>W</th>
+                <th>D</th>
+                <th>L</th>
+                <th>GF</th>
+                <th>GA</th>
+                <th>Pts</th>
+            </tr>
+    `;
+
+    teams.forEach((t, index) => {
+        html += `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${t.name}</td>
+                <td>${t.played}</td>
+                <td>${t.wins}</td>
+                <td>${t.draws}</td>
+                <td>${t.losses}</td>
+                <td>${t.gf}</td>
+                <td>${t.ga}</td>
+                <td><b>${t.points}</b></td>
+            </tr>
+        `;
+    });
+
+    html += `</table>`;
+
+    box.innerHTML = html;
+}
+
+// RUN
+loadStandings();
+
+</script>
+
+</body>
+</html>
